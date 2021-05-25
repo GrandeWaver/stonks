@@ -1,0 +1,2 @@
+# stonks
+Not finished yet
