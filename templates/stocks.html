@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block content %}
+        <div class="ui container">
+            <div class="ui breadcrumb">
+                <a href="/">Home</a>
+                <span class="divider">/</span>
+                <div class="active section">Stocks</div>
+            </div>
+
+            <div class="ui segments" id="filters" style="background-color: #ffa31a;">
+              <div class="left ui rail">
+                <div class="ui sticky" style="width: 272px !important; height: 262.531px !important; left: 274.5px;">
+                    <br>
+                  <h3 class="ui header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Filters</font></font></h3>
+            <div class="ui form">
+                <form method="get">
+                        <select name="filter">
+                            <option value="">All Events</option>
+                            <option {% if request.query_params.filter == 'new_closing_highs' %}selected='selected'{% endif %}
+                            value="new_closing_highs">New Closing Highs</option>
+                            <option {% if request.query_params.filter == 'new_closing_lows' %}selected='selected'{% endif %}
+                            value="new_closing_lows">New Closing Lows</option>
+                        </select>
+                        <select name="Asset">
+                            <option value="">All Assets</option>
+                            <option>ETF</option>
+                            <option>Company</option>
+                            <option>Crypto</option>
+                        </select>
+                        <select name="Indicator">
+                            <option value="">RSI</option>
+                            <option>MACD</option>
+                            <option>STOOCH RSI</option>
+                            <option>CHOP Index</option>
+                            <option>Stochastic</option>
+                            <option>Moving Average</option>
+                            <option>MA Cross</option>
+                        </select>
+                    <div style="margin-top: 15px;">
+                        <a class="item">
+                            <button class="ui button">Submit</button>
+                        </a>
+                    </div>
+                 </form>
+            </div>
+          </div>
+        </div>
+<div>
+    <table class="ui selectable celled table" style="text-align: center; table-layout: fixed; font-size: 12px;">
+        <thead>
+            <tr>
+                <th style="width: 18%;">Name</th>
+                <th style="width: 100px;">Price</th>
+                <th style="width: 100px;">24h</th>
+                <th style="width: 100px;">7d</th>
+                <th style="width: 100px;">1m</th>
+                <th style="width: 100px;">RSI</th>
+                <th style="width: 15%;">Last 7 Days</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stock in stocks %}
+            <tr class="item">
+                <td>  <a class="item">
+                        <h5 class="ui header">{{ stock.symbol }}</h5>
+                        <p><a href="/stocks/{{ stock.symbol }}">{{ stock.name }}</a></p>
+                      </a>
+                </td>
+                <td><h5 class="ui header">{{ stock.price }}</h5></td>
+                <td><h5 class="ui header">+5%</h5></td>
+                <td><h5 class="ui header">+7%</h5></td>
+                <td><h5 class="ui header">+13%</h5></td>
+                <td><h5 class="ui header">Strong Buy</h5></td>
+                <td><i class="big chart line icon"></i></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<script>
+
+    (async () => {
+      const res = await fetch(`http://localhost:8000/data/prices`);
+      const json = await res.json();
+      console.log(json.prices);
+    })();
+
+    $('.ui.sticky')
+  .sticky({
+    context: '#filters'
+  })
+;
+
+</script>
+{% endblock %}

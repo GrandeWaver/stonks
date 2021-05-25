@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="ui breadcrumb">
+        <a href="/">Home</a>
+        <span class="divider">/</span>
+        <a href="/strategies">Strategies</a>
+        <span class="divider">/</span>
+        <div class="active section">{{ strategy.name }}</div>
+    </div>
+
+    <h2>{{ strategy.name }}</h2>
+    <table class="ui striped table">
+        <thead>
+            <tr>
+                    <th>Stock added to strategy</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.name }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Description</h3>
+    <h4>{{ strategy.description }}</h4>
+{% endblock %}

@@ -1,0 +1,112 @@
+<html>
+   <head>
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+       <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+       <link href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.css" rel="stylesheet"/>
+      <meta content = "text/html; charset = ISO-8859-1" http-equiv = "content-type">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <title>stonks</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.css" rel="stylesheet"/>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+      <title>Playground</title>
+   </head>
+
+   <body>
+
+
+    <div class="container">
+
+      <table id="data-table" class="ui selectable celled table" style="text-align: center; table-layout: fixed; font-size: 12px;" id="our-table">
+        <thead>
+          <tr>
+            <th>symbol</th>
+            <th>name</th>
+            <th>price</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+
+        </tbody>
+      </table>
+    </div>
+
+   </body>
+
+<script>
+foo();
+
+
+function foo() {
+    $(function(){
+         var old_price = [];
+         table = $('#data-table');
+
+         table.find('tbody tr').each(function(index) {
+              old_price[index] = [];
+              $(this).find('td').each(function() {
+              old_price[index].push($(this).text());
+              })
+         });
+         console.log(old_price);
+
+
+    (async () => {
+         const res = await fetch(`http://localhost:8000/data/prices`);
+         const json = await res.json();
+
+         for (i in json.prices){
+             if (old_price.length > 0){
+                if(old_price[i][2] > json.prices[i].price)
+                    {
+                    console.log('spadek')
+                    }
+                else if(old_price[i][2] < json.prices[i].price)
+                    {
+                    console.log('wzrost')
+                    }
+                else
+                    {
+                    $('#data-table').find(json.prices[i].price).animate({color: "red"});
+                    }
+             }
+         }
+
+
+         console.log(json.prices);
+
+              var new_price_table = [];
+              for (var i in json.prices){
+                  new_price_table[i] = json.prices[i].price;
+              }
+
+
+              var new_table = [];
+              for (var i in json.prices){
+
+                  var row = `<tr>
+                                   <td>${json.prices[i].symbol}</td>
+                                   <td>${json.prices[i].name}</td>
+                                   <td>${json.prices[i].price}</td>
+                                `
+                  new_table.push(row)
+              }
+              var table = $('#table-body')
+              table.html(new_table)
+
+         })();
+         });
+    setTimeout(foo, 5000);
+}
+
+
+
+</script>
+</html>

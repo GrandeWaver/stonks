@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>stonks</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.css" rel="stylesheet"/>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    </head>
+    <body style="background-color: #ffebe6">
+        <div class="ui container">
+            <div class="ui small menu">
+              <div>
+                <a href="/" class="item">
+                <img src="https://emoji.gg/assets/emoji/5827_STONKS.png">
+                </a>
+              </div>
+              <a href="/stocks/" class="item">
+                Stocks
+              </a>
+              <a href="/strategies/" class="item">
+                Strategies
+              </a>
+              <a class="item">
+                Wallet
+              </a>
+              <div class="right menu">
+                    <a class="item">
+                        <div class="ui search">
+                            <div class="ui icon input">
+                                <input class="prompt" placeholder="Search stocks..." type="text">
+                                <i class="search icon"></i>
+                            </div>
+                            <div class="results" id="response"></div>
+                        </div>
+                    </a>
+              </div>
+            </div>
+            {% block content %}
+            {% endblock %}
+            </div>
+
+<script type="text/javascript">
+
+$('.ui.search')
+  .search({
+    minCharacters : 1,
+    apiSettings: {
+      url: '/data/?q={query}'
+    },
+    fields: {
+      results : 'search',
+      title   : 'name',
+      url     : 'symbol'
+    }
+  });
+</script>
+    </body>
+</html>

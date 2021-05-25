@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+
+<h1 id="siemka">siemka</h1>
+
+
+<script>
+function red() {
+    if (true) {
+        $('#siemka').animate({ color: 'red' }, 200);
+        $('#siemka').animate({ color: 'black' }, 1000);
+    }
+  }
+
+function green() {
+    if (true) {
+        $('#siemka').animate({ color: 'green' }, 200);
+        $('#siemka').animate({ color: 'black' }, 1000);
+    }
+  }
+
+red();
+green();
+</script>
+
+
+<div id="stocks" style="float: left; width: 70%;">
+    <table class="ui striped table">
+        <thead>
+            <tr>
+                    <th>Stock name</th>
+                    <th>Strategy name</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row.stock_name }}</td>
+            <td>{{ row.strategy_name }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="account" style="float: left; width: 30%;">
+    <div style="width: 100%;" class="ui vertical pointing menu">
+      <div style="float:left;" class="item">
+        <img src="https://emoji.gg/assets/emoji/5827_STONKS.png" height="60">
+      </div>
+      <div style="float:left;" class="item">
+          <h3>Kacper</h3>
+          <i class="bug icon"></i> HUMPBACK
+      </div>
+      <a style="clear: both;" class="item">
+        Help
+      </a>
+      <a class="item">
+        Guide
+      </a>
+      <a class="item">
+        Invite friends
+      </a>
+      <a class="item">
+        Settings
+      </a>
+    </div>
+    <table class="ui striped table">
+        <thead>
+            <tr>
+                    <th>Account balance</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>100$</td>
+        </tr>
+        </tbody>
+        <thead>
+            <tr>
+                    <th>Expenses</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>0$</td>
+        </tr>
+        </tbody>
+            <thead>
+            <tr>
+                    <th>Profit</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>20$</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
